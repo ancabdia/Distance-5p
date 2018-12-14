@@ -1,4 +1,5 @@
 import sys #libreria python para usar argumentos por consola
+import timeit #libreria python para poder utilizar el timer
 
 dp={}
 
@@ -27,11 +28,6 @@ def edit_distance(str1,str2,m,n):
         return dp[str1,str2]
     else:
         return divide(str1,str2,m,n)
-    
-
-# Driver program 
-#str1 = "potato"
-#str2 = "petete"
 
 #1- Leemos el fichero de datos
 file = open(sys.argv[1], "r") #abrir fichero en modo lectura
@@ -44,9 +40,17 @@ while(1):
 	palabras.append(palabra)
 
 for i in palabras: #Mostrar palabras y resultado
-	str1 = i[0]
+        #Inicializar timer
+        start = timeit.default_timer()
+	
+        str1 = i[0]
 	str2 = i[1]
-	print("Palabra "+ str(str1) +" " + str(str2) + "= " + str(edit_distance(str1, str2, len(str1), len(str2))))
+        res = edit_distance(str1, str2, len(str1), len(str2))
+        
+        #Parar timer
+        stop = timeit.default_timer()
+        
+	print("Palabra ["+ str(str1) + "] [" + str(str2) + "] se han realizado " + str(res) + " cambios y tiempo " + str((stop-start)*1000) + "seg")
 
 #print(dp) Imprimir todo el contenedor
 # This code is contributed by Bhavya Jain 
